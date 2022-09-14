@@ -29,7 +29,7 @@ export class FileModalPage implements OnInit {
       message: 'Uploading File...'
     });
     await loading.present();
-
+    console.log(this.image);
     await this.supabaseService.uploadFile(this.image, this.info);
     await loading.dismiss();
     this.modalCtrl.dismiss();
