@@ -34,7 +34,7 @@ export class SupabaseService {
     // Also listen to all auth changes
     this.supabase.auth.onAuthStateChange((event, session) => {
       console.log('AUTH CHANGED: ', event);
-
+      console.log(session);
       if (event == 'SIGNED_IN') {
         this.currentUser.next(session.user);
         this.loadFiles();
@@ -96,6 +96,7 @@ export class SupabaseService {
       this.router.navigateByUrl('/');
     });
   }
+
   async loadFiles(): Promise<void> {
     const query = await this.supabase.from(FILE_DB).select('*').order('created_at', { ascending: false });
 
