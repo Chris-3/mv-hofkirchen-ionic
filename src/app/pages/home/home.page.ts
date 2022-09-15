@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SupabaseService } from '../../services/supabase.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { FileModalPage } from '../file-modal/file-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +25,12 @@ export class HomePage {
       source: CameraSource.Prompt
     });
 
-    // const modal = await this.modalCtrl.create({
-    //   component: FileModalPage,
-    //   componentProps: { image }
-    // });
+    const modal = await this.modalCtrl.create({
+      component: FileModalPage,
+      componentProps: { image }
+    });
 
-    // await modal.present();
+    await modal.present();
   }
 
   logout() {

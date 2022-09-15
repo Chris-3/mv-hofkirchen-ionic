@@ -1,3 +1,4 @@
+import { FileModalPage } from './pages/file-modal/file-modal.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -10,7 +11,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    // FileModalPage
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -26,6 +30,6 @@ import { environment } from '../environments/environment';
     useClass: IonicRouteStrategy
   }],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
