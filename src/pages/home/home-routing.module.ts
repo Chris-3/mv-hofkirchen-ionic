@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    loadChildren: () => import('../file-modal/file-modal.module').then( m => m.FileModalPageModule),
   }
 ];
 

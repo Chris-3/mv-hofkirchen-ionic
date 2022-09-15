@@ -15,10 +15,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    // path: 'file-modal',
-    loadChildren: () => import('../pages/file-modal/file-modal.module').then( m => m.FileModalPageModule)
-  },
+ 
   {
     path: 'intro',
     loadChildren: () => import('../pages/intro/intro.module').then( m => m.IntroPageModule)
