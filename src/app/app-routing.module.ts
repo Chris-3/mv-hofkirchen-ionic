@@ -4,11 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('../pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('../pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
@@ -17,7 +17,15 @@ const routes: Routes = [
   },
   {
     // path: 'file-modal',
-    loadChildren: () => import('./pages/file-modal/file-modal.module').then( m => m.FileModalPageModule)
+    loadChildren: () => import('../pages/file-modal/file-modal.module').then( m => m.FileModalPageModule)
+  },
+  {
+    path: 'intro',
+    loadChildren: () => import('../pages/intro/intro.module').then( m => m.IntroPageModule)
+  },
+  {
+    path: 'inside',
+    loadChildren: () => import('./inside/inside.module').then( m => m.InsidePageModule)
   },
   
  
