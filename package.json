@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod": "ng build --prod"
+    "build:prod": "ionic build --prod"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +48,7 @@
     "@angular/language-service": "^14.0.0",
     "@capacitor/cli": "4.2.0",
     "@ionic/angular-toolkit": "^6.0.0",
+    "@ionic/cli": "^6.20.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
