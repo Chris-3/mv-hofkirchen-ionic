@@ -11,7 +11,7 @@ export class AuthGuard implements CanLoad {
 
   constructor(private supabaseService: SupabaseService, private router: Router) { }
 
-  canLoad(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.supabaseService.getCurrentUser().pipe(
       filter(val => val !== null), // Filter out initial Behaviour subject value
       take(1), // Otherwise the Observable doesn't complete!
