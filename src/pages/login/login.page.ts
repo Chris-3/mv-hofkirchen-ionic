@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
 
     this.supabaseService.signIn(this.credentials.value).then(async data => {
       await loading.dismiss();
-      this.router.navigateByUrl('/home', { replaceUrl: true });
+      this.router.navigateByUrl('/inside/home', { replaceUrl: true });
     }, async err => {
       await loading.dismiss();
       this.showAlert('Login failed', err.message);
@@ -63,4 +63,12 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+  // Easy access for form fields
+	get email() {
+		return this.credentials.get('email');
+	}
+
+	get password() {
+		return this.credentials.get('password');
+	}
 }

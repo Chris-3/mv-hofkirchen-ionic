@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { AutoLoginGuard } from './guards/auto-login.guard';
 import { IntroGuard } from './guards/intro.guard';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'inside',
-    loadChildren: () => import('./inside/inside.module').then( m => m.InsidePageModule)
+    loadChildren: () => import('./inside/inside.module').then( m => m.InsidePageModule),
+    canLoad: [AuthGuard] // Secure all child pages
   },
   {
     path: '',
