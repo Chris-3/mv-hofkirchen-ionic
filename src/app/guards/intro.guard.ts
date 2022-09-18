@@ -1,3 +1,4 @@
+import { COMPONENT } from './../interfaces/route-names';
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,7 +19,7 @@ export class IntroGuard implements CanLoad {
     if (hasSeenIntro) {
       return true;
     } else {
-      this.router.navigateByUrl('/intro', { replaceUrl: true });
+      this.router.navigateByUrl('/' + COMPONENT.INTRO, { replaceUrl: true });
       return false;
     }
   }

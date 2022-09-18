@@ -1,3 +1,4 @@
+import { COMPONENT } from './../interfaces/route-names';
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,7 +17,7 @@ export class AutoLoginGuard implements CanLoad {
       take(1), // Otherwise the Observable doesn't complete!
       map(isAuthenticated => {
         if (isAuthenticated) {
-          return this.router.createUrlTree(['/menu']);
+          return this.router.createUrlTree(['/' + COMPONENT.INSIDE ]);
         } else {
           return true;
         }

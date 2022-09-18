@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { INTRO_KEY } from 'src/app/guards/intro.guard';
 import { Preferences } from '@capacitor/preferences';
+import { COMPONENT } from 'src/app/interfaces/route-names';
 
 @Component({
   selector: 'app-intro',
@@ -27,6 +28,6 @@ export class IntroPage implements OnInit {
       value: 'true'
     });
     
-		this.router.navigateByUrl('/login', { replaceUrl: true });
+		this.router.navigateByUrl('/'+COMPONENT.LOGIN, { replaceUrl: true });
 	}
 }

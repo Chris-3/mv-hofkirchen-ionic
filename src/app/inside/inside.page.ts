@@ -1,6 +1,10 @@
+import { COMPONENT } from './../interfaces/route-names';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
 import { IonicModule, MenuController } from '@ionic/angular';
+
+// const COMPONENT_INSIDE = 
+
 
 @Component({
   selector: 'app-inside',
@@ -10,12 +14,16 @@ import { IonicModule, MenuController } from '@ionic/angular';
 export class InsidePage implements OnInit {
   pages = [
     {
-      title: 'Home',
-      url: '/menu/home'
+      title: COMPONENT.HOME,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.HOME
     },
     {
-      title: 'Kalender',
-      url: '/menu/calendar'
+      title: COMPONENT.CALENDER,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.CALENDER
+    },
+    {
+      title: COMPONENT.MUSICIAN,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.MUSICIAN
     },
   ]
   selectedPath = '';

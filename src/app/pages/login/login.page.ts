@@ -1,3 +1,4 @@
+import { COMPONENT } from './../../interfaces/route-names';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 })
 export class LoginPage implements OnInit {
 
-  
+
   credentials: FormGroup;
 
   constructor(
@@ -35,7 +36,7 @@ export class LoginPage implements OnInit {
 
     this.supabaseService.signIn(this.credentials.value).then(async data => {
       await loading.dismiss();
-      this.router.navigateByUrl('/menu', { replaceUrl: true });
+      this.router.navigateByUrl('/' + COMPONENT.INSIDE, { replaceUrl: true });
     }, async err => {
       await loading.dismiss();
       this.showAlert('Login failed', err.message);
@@ -64,11 +65,11 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
   // Easy access for form fields
-	get email() {
-		return this.credentials.get('email');
-	}
+  get email() {
+    return this.credentials.get('email');
+  }
 
-	get password() {
-		return this.credentials.get('password');
-	}
+  get password() {
+    return this.credentials.get('password');
+  }
 }

@@ -11,5 +11,8 @@ export class MusicianListPage implements OnInit {
 
   ngOnInit() {
   }
-
+  goToMusikerDetails(params){
+    if (!params) params = {};
+    // this.navCtrl.push(MusikerDetailsPage);
+  }
 }
