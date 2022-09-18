@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
 
     this.supabaseService.signIn(this.credentials.value).then(async data => {
       await loading.dismiss();
-      this.router.navigateByUrl('/inside/home', { replaceUrl: true });
+      this.router.navigateByUrl('/menu', { replaceUrl: true });
     }, async err => {
       await loading.dismiss();
       this.showAlert('Login failed', err.message);

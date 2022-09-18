@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { SupabaseService } from '../../app/services/supabase.service';
+import { SupabaseService } from '../../services/supabase.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { FileModalPage } from '../file-modal/file-modal.page';
 

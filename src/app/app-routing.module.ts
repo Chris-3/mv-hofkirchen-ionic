@@ -7,24 +7,29 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('../pages/login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
     canLoad:[IntroGuard, AutoLoginGuard]
   },
   {
     path: 'intro',
-    loadChildren: () => import('../pages/intro/intro.module').then( m => m.IntroPageModule)
+    loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
   },
   {
-    path: 'inside',
+    path: 'menu',
     loadChildren: () => import('./inside/inside.module').then( m => m.InsidePageModule),
-    canLoad: [AuthGuard] // Secure all child pages
+    canLoad: [AuthGuard], // Secure all child pages
   },
   {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
- 
+  {
+    path: '**',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  
  
 ];
 

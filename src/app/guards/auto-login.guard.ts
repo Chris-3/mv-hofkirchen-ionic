@@ -16,7 +16,7 @@ export class AutoLoginGuard implements CanLoad {
       take(1), // Otherwise the Observable doesn't complete!
       map(isAuthenticated => {
         if (isAuthenticated) {
-          return this.router.createUrlTree(['/inside']);
+          return this.router.createUrlTree(['/menu']);
         } else {
           return true;
         }
