@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { IonicModule, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inside',
