@@ -29,6 +29,14 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
+  {
+    path: 'musician-list',
+    loadChildren: () => import('./pages/musician/musician-list/musician-list.module').then( m => m.MusicianListPageModule)
+  },
+  {
+    path: 'musician-details',
+    loadChildren: () => import('./pages/musician/musician-details/musician-details.module').then( m => m.MusicianDetailsPageModule)
+  },
   
  
 ];

@@ -5,8 +5,13 @@ import { HomePage } from './home.page';
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
-
+    component: HomePage,
+    children: [
+      {
+        path: 'upload',
+        loadChildren: () => import('../file-modal/file-modal.module').then(m => m.FileModalPageModule)
+      },
+    ]
   }
 ];
 
