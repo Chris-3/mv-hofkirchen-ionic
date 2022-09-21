@@ -232,4 +232,64 @@ export class SupabaseService {
         return new File([blob], fileName, { type: 'image.webp' })
       })
   }
+
+  async addNewLineToTable(table: string, insert_data: any) {
+    const { data, error } = await this.supabase.from(table)
+      .insert(insert_data);
+    if (error) {
+      console.error(error);
+    }
+    return data || [];
+  }
+
+  async getDataFromTable(table: string) {
+    const { data, error } = await this.supabase
+      .from(table)
+      .select('*')
+      ;
+    if (error) {
+      console.error(error);
+    }
+    return data || [];
+  }
+
+  async updateDataOnTable(table: string, insert_data: any, id: number) {
+    const { data, error } = await this.supabase
+      .from(table)
+      .update(insert_data)
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error(error);
+    }
+    return data;
+  }
+
+
+  async deleteDataFromTable(table: string, id: number) {
+    const { data, error } = await this.supabase
+      .from(table)
+      .delete()
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error(error);
+    }
+    return data;
+  }
+
+  async getDataDetails(table: string, id: number) {
+    const { data, error } = await this.supabase
+      .from(table)
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error(error);
+    }
+    return data;
+  }
 }

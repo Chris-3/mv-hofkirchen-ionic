@@ -23,6 +23,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/musician/musician-list/musician-list.module').then( m => m.MusicianListPageModule)
       },
       {
+        path: COMPONENT.MUSICIAN+'/:id',
+        loadChildren: () => import('../pages/musician/musician-details/musician-details.module').then( m => m.MusicianDetailsPageModule)
+      },
+      {
         path: COMPONENT.INSTRUMENTS,
         loadChildren: () => import('../pages/musician/musician-list/musician-list.module').then( m => m.MusicianListPageModule)
       },
