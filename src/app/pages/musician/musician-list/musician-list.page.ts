@@ -23,6 +23,6 @@ export class MusicianListPage implements OnInit {
   }
 
   async newMusician() {
-    this.router.navigateByUrl('/' + COMPONENT.INSIDE + '/' + COMPONENT.MUSICIAN + '/new');
+    // this.router.navigateByUrl('/' + COMPONENT.INSIDE + '/' + COMPONENT.MUSICIAN + '/new');
   }
 }

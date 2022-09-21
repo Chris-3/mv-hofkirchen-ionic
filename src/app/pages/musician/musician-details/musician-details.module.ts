@@ -1,3 +1,4 @@
+import { InsertMusicianDataComponent } from '../insert-musician-data/insert-musician-data.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { MusicianDetailsPage } from './musician-details.page';
     IonicModule,
     MusicianDetailsPageRoutingModule
   ],
-  declarations: [MusicianDetailsPage]
+  declarations: [MusicianDetailsPage,InsertMusicianDataComponent]
 })
 export class MusicianDetailsPageModule {}

@@ -30,9 +30,11 @@ const routes: Routes = [
     redirectTo: '/' + COMPONENT.LOGIN,
     pathMatch: 'full'
   },
-
-
-
+  
+  // {
+  //   path: 'insert-musician-data-modal',
+  //   loadChildren: () => import('./pages/musician/insert-musician-data-modal/insert-musician-data-modal.module').then( m => m.InsertMusicianDataModalPageModule)
+  // },
 ];
 
 @NgModule({

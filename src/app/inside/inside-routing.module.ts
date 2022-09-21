@@ -32,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: COMPONENT.HOME,
+        redirectTo: COMPONENT.MUSICIAN,
         pathMatch: 'full'
       },
     ]

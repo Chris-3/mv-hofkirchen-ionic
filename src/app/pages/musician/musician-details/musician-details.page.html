@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>musician-details</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="updateMusician()">
+        Edit
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-buttons slot="end">
-    <ion-button color="primary" *ngIf="musician" (click)="updateMusician()">
-      Edit
-    </ion-button>
-  </ion-buttons>
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="musician">
@@ -30,9 +31,10 @@
         </ion-item>
         <ion-item *ngIf="musician.street_address">
           <ion-label position="stacked">Adresse</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.street_address}}, {{musician.postal_code}} {{musician.city}}</ion-input>
+          <ion-input color="primary" readonly="true">{{musician.street_address}}, {{musician.postal_code}}
+            {{musician.city}}</ion-input>
         </ion-item>
-        
+
       </ion-list>
     </ion-col>
   </ion-row>
