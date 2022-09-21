@@ -1,4 +1,8 @@
+import { COMPONENT } from './../../../interfaces/route-names';
+import { SupabaseService } from 'src/app/services/supabase.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Musician, TABLE_MUSICIANS } from 'src/app/interfaces/musician';
 
 @Component({
   selector: 'app-musician-list',
@@ -7,12 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MusicianListPage implements OnInit {
 
-  constructor() { }
+  musicians: Musician[] = [];
+  constructor(private dataService: SupabaseService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.loadMusicians();
   }
-  goToMusikerDetails(params){
-    if (!params) params = {};
-    // this.navCtrl.push(MusikerDetailsPage);
+
+  async loadMusicians() {
+    this.musicians = await this.dataService.getDataFromTable(TABLE_MUSICIANS);
+  }
+
+  async newMusician() {
+    this.router.navigateByUrl('/' + COMPONENT.INSIDE + '/' + COMPONENT.MUSICIAN + '/new');
   }
 }
