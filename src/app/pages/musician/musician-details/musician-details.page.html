@@ -2,32 +2,38 @@
   <ion-toolbar>
     <ion-title>musician-details</ion-title>
   </ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-button color="primary" *ngIf="musician" (click)="updateMusician()">
+      Edit
+    </ion-button>
+  </ion-buttons>
 </ion-header>
 
-<ion-content padding id="page5">
-  <form id="musikerDetails-form2">
-    <ion-list id="musikerDetails-list4">
-      <ion-item id="musikerDetails-input3">
-        <ion-label>
-          Name
-        </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
-      </ion-item>
-      <ion-item id="musikerDetails-input4">
-        <ion-label>
-          Email
-        </ion-label>
-        <ion-input type="email" placeholder=""></ion-input>
-      </ion-item>
-      <ion-item id="musikerDetails-input5">
-        <ion-label>
-          Password
-        </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
-      </ion-item>
-    </ion-list>
-    <button id="musikerDetails-button3" ion-button color="stable" block>
-      Sign up
-    </button>
-  </form>
+<ion-content [fullscreen]="true" *ngIf="musician">
+  <ion-row>
+    <ion-col class="content-col">
+      <ion-thumbnail class="user-image">
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+      </ion-thumbnail>
+      <ion-text color="dark">
+        <h2 class="user-name">{{musician.first_name}} {{musician.last_name}}</h2>
+      </ion-text>
+
+      <ion-list>
+        <ion-item *ngIf="musician.phone">
+          <ion-label position="stacked">Telephon</ion-label>
+          <ion-input color="primary" readonly="true">{{musician.phone}}</ion-input>
+        </ion-item>
+        <ion-item *ngIf="musician.email">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input color="primary" readonly="true">{{musician.email}}</ion-input>
+        </ion-item>
+        <ion-item *ngIf="musician.street_address">
+          <ion-label position="stacked">Adresse</ion-label>
+          <ion-input color="primary" readonly="true">{{musician.street_address}}, {{musician.postal_code}} {{musician.city}}</ion-input>
+        </ion-item>
+        
+      </ion-list>
+    </ion-col>
+  </ion-row>
 </ion-content>
