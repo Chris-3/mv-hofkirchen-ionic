@@ -15,6 +15,9 @@ import { MusicianListPage } from './musician-list.page';
     IonicModule,
     MusicianListPageRoutingModule
   ],
-  declarations: [MusicianListPage]
+  declarations: [
+    MusicianListPage,
+    
+  ]
 })
 export class MusicianListPageModule {}
