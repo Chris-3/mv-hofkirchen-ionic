@@ -1,3 +1,4 @@
+import { COMPONENT } from './interfaces/route-names';
 import { AuthGuard } from './guards/auth.guard';
 import { AutoLoginGuard } from './guards/auto-login.guard';
 import { IntroGuard } from './guards/intro.guard';
@@ -6,39 +7,34 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    canLoad:[IntroGuard, AutoLoginGuard]
+    path: COMPONENT.LOGIN,
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
+    canLoad: [IntroGuard, AutoLoginGuard]
   },
   {
-    path: 'intro',
-    loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
+    path: COMPONENT.INTRO,
+    loadChildren: () => import('./pages/intro/intro.module').then(m => m.IntroPageModule)
   },
   {
-    path: 'menu',
-    loadChildren: () => import('./inside/inside.module').then( m => m.InsidePageModule),
+    path: COMPONENT.INSIDE,
+    loadChildren: () => import('./inside/inside.module').then(m => m.InsidePageModule),
     canLoad: [AuthGuard], // Secure all child pages
   },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/' + COMPONENT.LOGIN,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: '/login',
+    redirectTo: '/' + COMPONENT.LOGIN,
     pathMatch: 'full'
   },
-  {
-    path: 'musician-list',
-    loadChildren: () => import('./pages/musician/musician-list/musician-list.module').then( m => m.MusicianListPageModule)
-  },
-  {
-    path: 'musician-details',
-    loadChildren: () => import('./pages/musician/musician-details/musician-details.module').then( m => m.MusicianDetailsPageModule)
-  },
   
- 
+  // {
+  //   path: 'insert-musician-data-modal',
+  //   loadChildren: () => import('./pages/musician/insert-musician-data-modal/insert-musician-data-modal.module').then( m => m.InsertMusicianDataModalPageModule)
+  // },
 ];
 
 @NgModule({
@@ -46,6 +42,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule],
-  
+
 })
 export class AppRoutingModule { }

@@ -1,0 +1,67 @@
+<ion-toolbar color="light">
+  <!-- <ion-buttons slot="start">
+    <button ion-button icon-only color='black' (click)="closeModal()">
+      <ion-icon name="close">zurück</ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title>Ionic Modal Title</ion-title> -->
+
+  <ion-buttons slot="start">
+    <ion-button color="primary" (click)="closeModal()">
+      Cancel
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button color="primary"  [disabled]="!musicianForm.valid" (click)="updateMusician()">
+     
+      Done
+    </ion-button>
+  </ion-buttons>
+  <ion-title slot="">New Contact</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-thumbnail class="user-image">
+    <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+  </ion-thumbnail>
+  <ion-row class="add-photo-wrapper">
+    <ion-button fill="clear">Add Photo</ion-button>
+  </ion-row>
+
+  <form [formGroup]="musicianForm" #createForm="ngForm" (ngSubmit)="updateMusician()">
+    <ion-list>
+      <ion-item>
+        <ion-input placeholder="Vorname" inputMode="text" clearInput="true" formControlName="first_name" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Nachname" inputMode="text" clearInput="true" formControlName="last_name" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Telephon Nr." inputMode="tel" clearInput="true" formControlName="phone"></ion-input>
+      </ion-item>
+      <ion-item>
+
+        <ion-input placeholder="Email" inputMode="email" clearInput="true" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Straße und Hausnummer" inputMode="text" clearInput="true"
+          formControlName="street_address"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Ort" inputMode="text" clearInput="true" formControlName="city"></ion-input>
+        <ion-input placeholder="Plz" inputMode="text" clearInput="true" formControlName="postal_code"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select placeholder="Select one" formControlName="category">
+          <ion-select-option value="Family">Family</ion-select-option>
+          <ion-select-option value="Friend">Friend</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+    </ion-list>
+    <ion-button (click)="deleteMusician()">Löschen</ion-button>
+  </form>
+</ion-content>
