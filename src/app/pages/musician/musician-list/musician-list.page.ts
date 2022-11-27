@@ -35,8 +35,18 @@ export class MusicianListPage implements OnInit {
       component: InsertMusicianDataComponent,
       componentProps: {
         musician: {
-          id: -1,
-        }
+          "id": 9,
+          "first_name": "Hallo",
+          "last_name": "Du",
+          "phone": "1234",
+          "street_address": "Regnersdorf",
+          "creator_id": "2e94b1fb-91c7-4723-ac66-cb60a239ca4b",
+          "created_at": "2022-09-13T22:07:19.51196+00:00",
+          "referenced_user": null,
+          "city": "hofkirchen",
+          "postal_code": 4716,
+          "email": null
+      }
       },
       cssClass: 'setting-modal',
       backdropDismiss: false,

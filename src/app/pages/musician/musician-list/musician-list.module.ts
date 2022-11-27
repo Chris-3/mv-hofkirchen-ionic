@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MusicianListPageRoutingModule } from './musician-list-routing.module';
 
 import { MusicianListPage } from './musician-list.page';
+// import { InsertMusicianDataComponent } from '../insert-musician-data/insert-musician-data.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { MusicianListPage } from './musician-list.page';
   ],
   declarations: [
     MusicianListPage,
-    
+    // InsertMusicianDataComponent
+
   ]
 })
 export class MusicianListPageModule {}

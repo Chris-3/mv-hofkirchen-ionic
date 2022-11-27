@@ -1,8 +1,8 @@
 import { AlertCrtlService } from './../../../services/alert-crtl.service';
 import { SupabaseService } from './../../../services/supabase.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Musician, TABLE_MUSICIANS } from './../../../interfaces/musician';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./insert-musician-data.component.scss'],
 })
 export class InsertMusicianDataComponent implements OnInit {
-  @Input() musician: Musician;
+  @Input() musician: any;
 
   includedFields: any;
   confirmDelete: Boolean;
@@ -26,7 +26,8 @@ export class InsertMusicianDataComponent implements OnInit {
     postal_code: ['', Validators.pattern("[0-9]{0,6}")],
     email: [''],
   })
-
+  @ViewChild('createForm') createForm: FormGroupDirective;
+  
   constructor(
     private modalController: ModalController,
     private fb: FormBuilder,
@@ -47,8 +48,9 @@ export class InsertMusicianDataComponent implements OnInit {
     //   this.musicianForm.patchValue(this.musician);
     // }
     // this.fileService.loadFiles(this.images);
-    this.musicianForm.patchValue(this.musician);
-    this.trackEmptyFields();
+    console.log(this.musician)
+    // this.musicianForm.patchValue(this.musician);
+    // this.trackEmptyFields();
   }
 
   closeModal() {

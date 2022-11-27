@@ -1,3 +1,4 @@
+import { InsertMusicianDataComponent } from './pages/musician/insert-musician-data/insert-musician-data.component';
 // import { FileModalPage } from './pages/file-modal/file-modal.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +14,7 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    // FileModalPage
+    InsertMusicianDataComponent
   ],
   imports: [
     BrowserModule,

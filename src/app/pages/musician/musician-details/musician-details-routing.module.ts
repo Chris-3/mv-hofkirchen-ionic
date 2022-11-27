@@ -8,6 +8,11 @@ const routes: Routes = [
   {
     path: '',
     component: MusicianDetailsPage,
+    children:[{
+      path:'update',
+      loadChildren: () => import('../insert-musician-data/insert-musician-data.component').then( m => m.InsertMusicianDataComponent)
+
+    }]
   }
 ];
 
