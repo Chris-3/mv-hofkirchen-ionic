@@ -21,6 +21,13 @@ const routes: Routes = [
     canLoad: [AuthGuard], // Secure all child pages
   },
   {
+    path:'.well-known/matrix/server'
+    // redirectTo:'.well-known/matrix/server'
+  },{
+    path:'.well-known/matrix/client'
+    // redirectTo:'.well-known/matrix/server'
+  },
+  {
     path: '',
     redirectTo: '/' + COMPONENT.LOGIN,
     pathMatch: 'full'
