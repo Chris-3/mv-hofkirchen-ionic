@@ -20,13 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./inside/inside.module').then(m => m.InsidePageModule),
     canLoad: [AuthGuard], // Secure all child pages
   },
-  // {
-  //   path:'.well-known/matrix/server'
-  //   // redirectTo:'.well-known/matrix/server'
-  // },{
-  //   path:'.well-known/matrix/client'
-  //   // redirectTo:'.well-known/matrix/server'
-  // },
   {
     path: '',
     redirectTo: '/' + COMPONENT.LOGIN,
@@ -37,11 +30,6 @@ const routes: Routes = [
     redirectTo: '/' + COMPONENT.LOGIN,
     pathMatch: 'full'
   },
-    // {
-  //   path: 'insert-musician-data-modal',
-  //   loadChildren: () => import('./pages/musician/insert-musician-data-modal/insert-musician-data-modal.module')
-  //   .then( m => m.InsertMusicianDataModalPageModule)
-  // },
 ];
 
 @NgModule({

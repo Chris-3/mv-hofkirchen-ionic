@@ -20,7 +20,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    // InsertMusicianDataModalPageModule
   ],
   exports: [RouterModule],
   // declarations:[InsertMusicianDataModalPage]

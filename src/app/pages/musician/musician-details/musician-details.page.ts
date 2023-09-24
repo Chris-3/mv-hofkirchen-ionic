@@ -2,10 +2,9 @@ import { InsertUpdateMusicianDataComponent } from '../insert-update-musician-dat
 import { Musician } from 'src/app/interfaces/musician';
 import { ModalController } from '@ionic/angular';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { TABLE_MUSICIANS } from './../../../interfaces/musician';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { TABLE_MUSICIANS } from '../../../interfaces/musician';
+import { Component,  OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-musician-details',
@@ -22,7 +21,6 @@ export class MusicianDetailsPage implements OnInit {
     private dataService: SupabaseService,
     private activatedRoute: ActivatedRoute,
     private modalController: ModalController,
-    private router: Router
   ) { }
 
   async ngOnInit() {
