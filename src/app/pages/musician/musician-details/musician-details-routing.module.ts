@@ -10,7 +10,8 @@ const routes: Routes = [
     component: MusicianDetailsPage,
     children:[{
       path:'update',
-      loadChildren: () => import('../insert-update-musician-data/insert-update-musician-data.component').then(m => m.InsertUpdateMusicianDataComponent)
+      loadChildren: () => import('../insert-update-musician-data/insert-update-musician-data.component')
+          .then(m => m.InsertUpdateMusicianDataComponent)
 
     }]
   }

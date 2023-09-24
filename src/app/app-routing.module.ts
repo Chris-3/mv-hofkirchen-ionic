@@ -39,7 +39,8 @@ const routes: Routes = [
   },
     // {
   //   path: 'insert-musician-data-modal',
-  //   loadChildren: () => import('./pages/musician/insert-musician-data-modal/insert-musician-data-modal.module').then( m => m.InsertMusicianDataModalPageModule)
+  //   loadChildren: () => import('./pages/musician/insert-musician-data-modal/insert-musician-data-modal.module')
+  //   .then( m => m.InsertMusicianDataModalPageModule)
   // },
 ];
 
