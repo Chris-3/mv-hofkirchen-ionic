@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>{{ instrument?.id ? 'Update Instrument' : 'Add New Instrument' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="submitForm()">
+        {{ instrument?.id ? 'Update' : 'Add' }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col class="content-col">
+      <form [formGroup]="instrForm" (ngSubmit)="submitForm()">
+        <!-- Instrument Image Upload -->
+        <ion-item>
+<!--          <ion-thumbnail class="user-image">-->
+<!--            <img [src]="getAvatar()" alt="Instrument Image" />-->
+<!--          </ion-thumbnail>-->
+<!--        </ion-item>-->
+<!--        <ion-input type="file" #fileInput (change)="onFileChange($event)"></ion-input>-->
+
+<!--        &lt;!&ndash; Instrument Title &ndash;&gt;-->
+<!--        <ion-item>-->
+          <ion-label position="stacked">Title</ion-label>
+          <ion-input type="text" formControlName="title" (change)="logFormValue()"></ion-input>
+        </ion-item>
+
+        <!-- Serial Number -->
+        <ion-item>
+          <ion-label position="stacked">Serial Number</ion-label>
+          <ion-input type="text" formControlName="serialNr"></ion-input>
+        </ion-item>
+
+        <!-- Manufacturer -->
+        <ion-item>
+          <ion-label position="stacked">Manufacturer</ion-label>
+          <ion-input type="text" formControlName="manufacturer"></ion-input>
+        </ion-item>
+
+        <!-- Construction Year -->
+        <ion-item>
+          <ion-label position="stacked">Construction Year</ion-label>
+          <ion-input type="date" formControlName="constructionYear"></ion-input>
+        </ion-item>
+
+        <!-- Acquisition Cost -->
+        <ion-item>
+          <ion-label position="stacked">Acquisition Cost</ion-label>
+          <ion-input type="number" formControlName="acquisitionCost"></ion-input>
+        </ion-item>
+
+        <!-- Instrument Type -->
+        <ion-item>
+          <ion-label position="stacked">Instrument Type</ion-label>
+          <ion-input type="number" formControlName="instrumentType"></ion-input>
+        </ion-item>
+
+        <!-- Is Used -->
+        <ion-item>
+          <ion-label position="stacked">Is Used</ion-label>
+          <ion-toggle formControlName="isUsed"></ion-toggle>
+        </ion-item>
+
+        <!-- Accessories -->
+        <ion-item>
+          <ion-label position="stacked">Accessories</ion-label>
+          <ion-input type="text" formControlName="accessories"></ion-input>
+        </ion-item>
+
+        <!-- Notes -->
+        <ion-item>
+          <ion-label position="stacked">Notes</ion-label>
+          <ion-textarea formControlName="notes"></ion-textarea>
+        </ion-item>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>

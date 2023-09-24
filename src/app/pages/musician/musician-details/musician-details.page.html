@@ -6,7 +6,7 @@
     <ion-title>musician-details</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="updateMusician()">
+      <ion-button color="primary" (click)="openModal(musician)">
         Edit
       </ion-button>
     </ion-buttons>
@@ -20,7 +20,7 @@
         <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
       </ion-thumbnail>
       <ion-text color="dark">
-        <h2 class="user-name">{{musician.first_name}} {{musician.last_name}}</h2>
+        <h2 class="user-name">{{musician.firstName}} {{musician.lastName}}</h2>
       </ion-text>
 
       <ion-list>
@@ -32,10 +32,14 @@
           <ion-label position="stacked">Email</ion-label>
           <ion-input color="primary" readonly="true">{{musician.email}}</ion-input>
         </ion-item>
-        <ion-item *ngIf="musician.street_address">
+        <ion-item *ngIf="musician.streetAddress">
           <ion-label position="stacked">Adresse</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.street_address}}, {{musician.postal_code}}
+          <ion-input color="primary" readonly="true">{{musician.streetAddress}}, {{musician.postalCode}}
             {{musician.city}}</ion-input>
+        </ion-item>
+        <ion-item *ngIf="musician.dateOfBirth">
+          <ion-label position="stacked">Geburtstag</ion-label>
+          <ion-input color="primary" readonly="true">{{musician.dateOfBirth}}</ion-input>
         </ion-item>
 
       </ion-list>

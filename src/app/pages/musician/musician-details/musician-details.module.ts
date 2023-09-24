@@ -1,4 +1,4 @@
-// import { InsertMusicianDataComponent } from '../insert-musician-data/insert-musician-data.component';
+// import { InsertUpdateMusicianDataComponent } from '../insert-musician-data/insert-musician-data.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';

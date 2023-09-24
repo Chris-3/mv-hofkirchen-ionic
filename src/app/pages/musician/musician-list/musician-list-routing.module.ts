@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { MusicianListPage } from './musician-list.page';
+import {MusicianListPage} from './musician-list.page';
+import {InsertUpdateMusicianDataComponent} from '../insert-update-musician-data/insert-update-musician-data.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MusicianListPage
-  }
+    {
+        path: '',
+        component: MusicianListPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    // declarations: [InsertUpdateMusicianDataComponent,],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class MusicianListPageRoutingModule {}
+export class MusicianListPageRoutingModule {
+}

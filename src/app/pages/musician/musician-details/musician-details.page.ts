@@ -1,4 +1,4 @@
-import { InsertMusicianDataComponent } from './../insert-musician-data/insert-musician-data.component';
+import { InsertUpdateMusicianDataComponent } from '../insert-update-musician-data/insert-update-musician-data.component';
 import { Musician } from 'src/app/interfaces/musician';
 import { ModalController } from '@ionic/angular';
 import { SupabaseService } from 'src/app/services/supabase.service';
@@ -31,17 +31,20 @@ export class MusicianDetailsPage implements OnInit {
     this.musician = await this.dataService.getDataDetails(TABLE_MUSICIANS, +id);
   }
 
-  async updateMusician() {
+  async openModal(musician?: Musician) {
     const modal = await this.modalController.create({
-      component: InsertMusicianDataComponent,
-      componentProps: { musician: this.musician },
-      cssClass: 'setting-modal',
-      backdropDismiss: false,
+      component: InsertUpdateMusicianDataComponent,
+      componentProps: {
+        musician
+      }
     });
 
-    // const modal = await this.modalController.create(InsertMusicianDataModalPage,{});
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        // Handle the data returned from the modal
+      }
+    });
 
     return await modal.present();
   }
-
 }

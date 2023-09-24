@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InsidePageRoutingModule } from './inside-routing.module';
 
 import { InsidePage } from './inside.page';
-// import { InsertMusicianDataComponent } from '../pages/musician/insert-musician-data/insert-musician-data.component';
+// import { InsertUpdateMusicianDataComponent } from '../pages/musician/insert-musician-data/insert-musician-data.component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { InsidePage } from './inside.page';
   ],
   declarations: [
     InsidePage,
-    // InsertMusicianDataComponent
+    // InsertUpdateMusicianDataComponent
 
   ]
 })

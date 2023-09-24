@@ -4,16 +4,16 @@ export const FILE_DB = 'files';
 export interface MyFileInfo {
   private: boolean;
   title: string;
-  file_name?: string;
+  fileName?: string;
 }
 
 export interface FileItem {
-  created_at: string;
-  file_name: string;
+  createdAt: string;
+  fileName: string;
   id: string;
-  image_url?: Promise<any>;
+  imageUrl?: Promise<any>;
   private: boolean;
   title: string;
-  user_id: string;
+  userId: string;
   creator?: boolean;
 }

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
 import { IonicModule, MenuController } from '@ionic/angular';
 
-// const COMPONENT_INSIDE = 
+// const COMPONENT_INSIDE =
 
 
 @Component({
@@ -25,7 +25,11 @@ export class InsidePage implements OnInit {
       title: COMPONENT.MUSICIAN,
       url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.MUSICIAN
     },
-  ]
+    {
+      title: COMPONENT.INSTRUMENTS,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.INSTRUMENTS
+    },
+  ];
   selectedPath = '';
 
   constructor(private router: Router) {
@@ -34,7 +38,7 @@ export class InsidePage implements OnInit {
         this.selectedPath = event.url;
 
       }
-    })
+    });
   }
 
   ngOnInit() {
