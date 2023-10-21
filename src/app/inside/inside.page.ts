@@ -1,0 +1,48 @@
+import { COMPONENT } from '../interfaces/route-names';
+import { Component, OnInit } from '@angular/core';
+import {  Router, RouterEvent } from '@angular/router';
+import {Observable} from "rxjs";
+import {filter} from "rxjs/operators";
+
+// const COMPONENT_INSIDE =
+
+
+@Component({
+  selector: 'app-inside',
+  templateUrl: './inside.page.html',
+  styleUrls: ['./inside.page.scss'],
+})
+export class InsidePage implements OnInit {
+  pages = [
+    // {
+    //   title: COMPONENT.HOME,
+    //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.HOME
+    // },
+    // {
+    //   title: COMPONENT.CALENDER,
+    //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.CALENDER
+    // },
+    // {
+    //   title: COMPONENT.MUSICIAN,
+    //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.MUSICIAN
+    // },
+    {
+      title: COMPONENT.INSTRUMENTS,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.INSTRUMENTS
+    },
+  ];
+  selectedPath = '';
+
+  constructor(private router: Router) {
+    (this.router.events as Observable<RouterEvent>).pipe(
+      filter(event => event instanceof RouterEvent)
+    ).subscribe(event => {
+      if (event.url) {
+        this.selectedPath = event.url;
+      }
+    });
+  }
+  ngOnInit() {
+  }
+
+}
