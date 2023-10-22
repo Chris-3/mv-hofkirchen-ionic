@@ -34,7 +34,7 @@ export class InsertUpdateInstrumentComponent implements OnInit {
     currency: [1, Validators.required], // Made required based on the DB constraint
     container: [''],
     particularities: [''],
-    owner: ['',] // Made required based on the DB constraint
+    owner: ['MV Hofkirchen',] // Made required based on the DB constraint
   });
 
   constructor(
@@ -52,6 +52,7 @@ export class InsertUpdateInstrumentComponent implements OnInit {
     this.pictureList[0] = 'test.jpg';
     if (this.instrument && this.instrument.id) {
       this.instrForm.patchValue(this.instrument);
+      this.inventoryLabel=this.instrument.type_label_short+this.instrument.inventory_nr;
     }
   }
 

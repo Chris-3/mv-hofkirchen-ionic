@@ -1,67 +1,44 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-button slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-button>
-    <ion-title>instruments-detail</ion-title>
-    <ion-buttons slot="end">
-      <ion-button color="primary" (click)="openInsertUpdateInstrumentModal(instrument)">
-        Bearbeiten
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-button slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-button>
+        <ion-title>instruments-detail</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="primary" (click)="openInsertUpdateInstrumentModal(instrument)">
+                Bearbeiten
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true" *ngIf="instrument">
-  <ion-row>
-    <ion-col class="content-col">
-      <!-- Thumbnail of the instrument (you might want to replace this with an actual image URL in the future) -->
-      <ion-thumbnail class="user-image">
-        <img alt="Instrument image placeholder" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
-      </ion-thumbnail>
+    <ion-row>
+        <ion-col class="content-col">
+            <!-- Thumbnail of the instrument -->
+            <ion-thumbnail class="user-image">
+                <img alt="Instrument image placeholder"
+                     src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"/>
+            </ion-thumbnail>
 
-      <!-- Instrument Title -->
-      <ion-text color="dark">
-        <h2 class="instrument-name">{{instrument.instrument_type}}</h2>
-      </ion-text>
+            <!-- Instrument Title -->
+            <ion-text color="dark">
+                <h2 class="instrument-name">{{instrument.type_label}}</h2>
+            </ion-text>
 
-      <!-- Instrument Details List -->
-      <ion-list>
-        <ion-item *ngIf="instrument.serial_nr">
-          <ion-label position="stacked">Serial Number</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.serial_nr}}</ion-input>
-        </ion-item>
+            <!-- Instrument Details List -->
+            <ion-list>
+                <ng-container *ngFor="let detail of instrumentDetails">
+                    <ion-item *ngIf="instrument[detail.prop]">
+                        <ion-label position="stacked">{{ detail.label }}</ion-label>
+                        <ion-input color="primary" readonly="true" [value]="getFormattedValue(detail, instrument)"></ion-input>
+                    </ion-item>
+                </ng-container>
+            </ion-list>
 
-        <ion-item *ngIf="instrument.manufacturer">
-          <ion-label position="stacked">Manufacturer</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.manufacturer}}</ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="instrument.construction_year">
-          <ion-label position="stacked">Construction Year</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.construction_year}}</ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="instrument.acquisition_cost">
-          <ion-label position="stacked">Acquisition Cost</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.acquisition_cost}}</ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="instrument.instrument_type">
-          <ion-label position="stacked">Instrument Type</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.instrument_type}}</ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="instrument.container">
-          <ion-label position="stacked">Accessories</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.container}}</ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="instrument.notes">
-          <ion-label position="stacked">Notes</ion-label>
-          <ion-input color="primary" readonly="true">{{instrument.notes}}</ion-input>
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
+            <!-- Delete Instrument Button -->
+            <ion-button color="danger" expand="block" (click)="deleteInstrument(instrument.id)">Instrument löschen</ion-button>
+        </ion-col>
+    </ion-row>
 </ion-content>
 

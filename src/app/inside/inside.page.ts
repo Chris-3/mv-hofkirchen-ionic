@@ -2,9 +2,7 @@ import { COMPONENT } from '../interfaces/route-names';
 import { Component, OnInit } from '@angular/core';
 import {  Router, RouterEvent } from '@angular/router';
 import {Observable} from "rxjs";
-import {filter} from "rxjs/operators";
 
-// const COMPONENT_INSIDE =
 
 
 @Component({
@@ -35,7 +33,6 @@ export class InsidePage implements OnInit {
 
   constructor(private router: Router) {
     (this.router.events as Observable<RouterEvent>).pipe(
-      filter(event => event instanceof RouterEvent)
     ).subscribe(event => {
       if (event.url) {
         this.selectedPath = event.url;

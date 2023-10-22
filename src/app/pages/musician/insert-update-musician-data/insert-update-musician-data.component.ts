@@ -46,7 +46,6 @@ export class InsertUpdateMusicianDataComponent implements OnInit {
   ngOnInit() {
     if (this.musician && this.musician.id) { // Check for a valid musician object
       this.musicianForm.patchValue(this.musician); // Populate the form with the musician data
-      this.setAvatarUrl();
     }
   }
   // async ngOnInit() {
@@ -140,23 +139,7 @@ export class InsertUpdateMusicianDataComponent implements OnInit {
       .pipe(map(this.filterEmptyFields))
       .subscribe(field => this.includedFields = field);
   }
-  async setAvatarUrl(): Promise<void> {
-    // if (this.musician?.avatar) {
-    //   // const result = await this.dataService.getAvatarUrl(this.musician.avatar);
-    //   if (result?.data?.publicURL) {
-    //     this.avatarUrl = result.data.publicURL;
-    //   } else {
-    //     this.avatarUrl = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-    //   }
-    // } else {
-    //   this.avatarUrl = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-    // }
-    this.avatarUrl = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-  }
-  getAvatar(): string {
-    return this?.avatarUrl || 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-  }
-// Filter any fields that aren't empty & store in a new object - To be passed on the Pipe map's caller
+
   filterEmptyFields(data: any): any  {
     const fields: any = {};
     Object.keys(data).forEach(key => data[key] !== '' ? fields[key] = data[key] : key);

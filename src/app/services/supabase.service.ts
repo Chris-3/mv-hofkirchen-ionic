@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {createClient, SupabaseClient, User} from '@supabase/supabase-js';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {AlertCrtlService} from "./alert-crtl.service";
 
-interface InventoryData {
-    inventory_nr: number;
 
-}
 
 @Injectable({
     providedIn: 'root'
@@ -96,8 +93,10 @@ export class SupabaseService {
         const {data, error} = await this.supabase.from(table).delete().eq('id', id).single();
         if (error) {
             await this.alertService.presentErrorToast(error.message);  // Display the error toast
+            console.error(error.message);
             throw error;
         }
+        console.log('Instrument deleted successfully');
         return data;
     }
 
@@ -140,17 +139,36 @@ export class SupabaseService {
         return missingNumber;
         // return data && data[0] && data[0].inventoryNr ? data[0].inventoryNr : null;
     }
-  async getAllInstruments(labelShort = null) {
-    const params = labelShort ? { p_label_short: labelShort } : {};
 
-    const { data, error } = await this.supabase.rpc('get_instruments', params);
+    async getAllInstruments(labelShort = null) {
+        const params = labelShort ? {p_label_short: labelShort} : {};
 
-    if (error) {
-      console.error("Error fetching instruments:", error);
-      return null;
+        const {data, error} = await this.supabase.rpc('get_instruments', params);
+
+        if (error) {
+            await this.alertService.presentErrorToast(error.message);
+            // console.error("Error fetching instruments:", error);
+            return null;
+        }
+
+        return data;
     }
 
-    return data;
-  }
+    async getInstrumentByInventoryLabel(labelShort: string, inventoryNr: number): Promise<any> {
+
+        const {data, error} = await this.supabase
+            .rpc('get_instrument_by_inventory_label', {
+                p_label_short: labelShort,
+                p_inventory_nr: inventoryNr
+            }).single();
+
+        if (error) {
+            await this.alertService.presentErrorToast(error.message);
+            return error;
+        }
+
+        return data;
+
+    }
 
 }
