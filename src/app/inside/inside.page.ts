@@ -20,10 +20,10 @@ export class InsidePage implements OnInit {
     //   title: COMPONENT.CALENDER,
     //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.CALENDER
     // },
-    // {
-    //   title: COMPONENT.MUSICIAN,
-    //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.MUSICIAN
-    // },
+    {
+      title: COMPONENT.MUSICIAN,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.MUSICIAN
+    },
     {
       title: COMPONENT.INSTRUMENTS,
       url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.INSTRUMENTS

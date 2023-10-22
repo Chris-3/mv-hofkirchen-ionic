@@ -6,73 +6,26 @@
     <ion-title>{{ musician?.id ? 'Update Musician' : 'Add New Musician' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="submitForm()">
-        {{ musician?.id ? 'Update' : 'Add' }}
+        {{ musician?.id ? 'speichern' : 'speichern' }}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-row>
-    <ion-col class="content-col">
-
-      <form [formGroup]="musicianForm" (ngSubmit)="submitForm()">
+<ion-content>
+    <form [formGroup]="musicianForm" (ngSubmit)="submitForm()">
         <ion-item>
-<!--          <ion-thumbnail class="user-image">-->
-<!--            <img [src]="getAvatar()" alt="Musician Avatar" />-->
-<!--          </ion-thumbnail>-->
-
-
+            <ion-label>Externer Kontakt</ion-label>
+            <ion-toggle formControlName="is_extern"></ion-toggle>
         </ion-item>
-        <ion-input type="file" #fileInput (change)="onFileChange($event)" ></ion-input>
-        <!-- First Name -->
-        <ion-item>
-          <ion-label position="stacked">First Name</ion-label>
-          <ion-input type="text" formControlName="firstName"></ion-input>
-        </ion-item>
+        <ng-container *ngFor="let detail of musicianDetails">
+            <ion-item>
+                <ion-label position="stacked">{{ detail.label }}</ion-label>
+                <ion-input [type]="detail.type" formControlName="{{ detail.prop }}"></ion-input>
+            </ion-item>
+        </ng-container>
 
-        <!-- Last Name -->
-        <ion-item>
-          <ion-label position="stacked">Last Name</ion-label>
-          <ion-input type="text" formControlName="lastName"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Geburtstag</ion-label>
-          <ion-input type="date" formControlName="dateOfBirth"></ion-input>
-        </ion-item>
-
-        <!-- Phone -->
-        <ion-item>
-          <ion-label position="stacked">Phone</ion-label>
-          <ion-input type="tel" formControlName="phone"></ion-input>
-        </ion-item>
-
-        <!-- Street Address -->
-        <ion-item>
-          <ion-label position="stacked">Street Address</ion-label>
-          <ion-input type="text" formControlName="streetAddress"></ion-input>
-        </ion-item>
-
-        <!-- City -->
-        <ion-item>
-          <ion-label position="stacked">City</ion-label>
-          <ion-input type="text" formControlName="city"></ion-input>
-        </ion-item>
-
-        <!-- Postal Code -->
-        <ion-item>
-          <ion-label position="stacked">Postal Code</ion-label>
-          <ion-input type="text" formControlName="postalCode"></ion-input>
-        </ion-item>
-
-        <!-- Email -->
-        <ion-item>
-          <ion-label position="stacked">Email</ion-label>
-          <ion-input type="email" formControlName="email"></ion-input>
-        </ion-item>
-
-      </form>
-
-    </ion-col>
-  </ion-row>
+        <!-- You can add any other non-generic input components here, like Avatar upload, etc. -->
+    </form>
 </ion-content>
+

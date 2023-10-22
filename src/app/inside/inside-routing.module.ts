@@ -20,16 +20,16 @@ const routes: Routes = [
       //   loadChildren: () => import('../pages/calendar/calendar.module')
       //       .then( m => m.CalendarPageModule)
       // },
-      // {
-      //   path: COMPONENT.MUSICIAN,
-      //   loadChildren: () => import('../pages/musician/musician-list/musician-list.module')
-      //       .then( m => m.MusicianListPageModule)
-      // },
-      // {
-      //   path: COMPONENT.MUSICIAN+'/:id',
-      //   loadChildren: () => import('../pages/musician/musician-details/musician-details.module')
-      //       .then( m => m.MusicianDetailsPageModule)
-      // },
+      {
+        path: COMPONENT.MUSICIAN,
+        loadChildren: () => import('../pages/musician/musician-list/musician-list.module')
+            .then( m => m.MusicianListPageModule)
+      },
+      {
+        path: COMPONENT.MUSICIAN+'/:id',
+        loadChildren: () => import('../pages/musician/musician-details/musician-details.module')
+            .then( m => m.MusicianDetailsPageModule)
+      },
       {
         path: COMPONENT.INSTRUMENTS,
         loadChildren: () => import('../pages/instruments/instruments-list/instruments-list.module')

@@ -3,11 +3,11 @@
     <ion-button slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-button>
-    <ion-title>musician-details</ion-title>
+    <ion-title>Musiker Details</ion-title>
 
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="openModal(musician)">
-        Edit
+        Bearbeiten
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -16,33 +16,31 @@
 <ion-content [fullscreen]="true" *ngIf="musician">
   <ion-row>
     <ion-col class="content-col">
+      <!-- Thumbnail of the musician -->
       <ion-thumbnail class="user-image">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        <img *ngIf="!musician.is_extern" src="assets/Steinbock_logo_small.png" alt="Musician image placeholder" />
+        <img *ngIf="musician.is_extern" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" alt="Extern musician placeholder" />
       </ion-thumbnail>
+
+      <!-- Musician Title -->
       <ion-text color="dark">
-        <h2 class="user-name">{{musician.firstName}} {{musician.lastName}}</h2>
+        <h2>{{ musician.first_name }} {{ musician.last_name }}
+          <span *ngIf="musician.is_extern" style="float: right;">extern</span>
+        </h2>
       </ion-text>
 
+      <!-- Musician Details List -->
       <ion-list>
-        <ion-item *ngIf="musician.phone">
-          <ion-label position="stacked">Telephon</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.phone}}</ion-input>
-        </ion-item>
-        <ion-item *ngIf="musician.email">
-          <ion-label position="stacked">Email</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.email}}</ion-input>
-        </ion-item>
-        <ion-item *ngIf="musician.streetAddress">
-          <ion-label position="stacked">Adresse</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.streetAddress}}, {{musician.postalCode}}
-            {{musician.city}}</ion-input>
-        </ion-item>
-        <ion-item *ngIf="musician.dateOfBirth">
-          <ion-label position="stacked">Geburtstag</ion-label>
-          <ion-input color="primary" readonly="true">{{musician.dateOfBirth}}</ion-input>
-        </ion-item>
-
+        <ng-container *ngFor="let detail of musiciansDetails">
+          <ion-item *ngIf="musician[detail.prop]">
+            <ion-label position="stacked">{{ detail.label }}</ion-label>
+            <ion-input color="primary" readonly="true" [value]="getFormattedValue(detail, musician)"></ion-input>
+          </ion-item>
+        </ng-container>
       </ion-list>
+      <!-- Delete Instrument Button -->
+      <ion-button color="danger" expand="block" (click)="deleteMusician(musician.id)">Musiker löschen</ion-button>
+
     </ion-col>
   </ion-row>
 </ion-content>

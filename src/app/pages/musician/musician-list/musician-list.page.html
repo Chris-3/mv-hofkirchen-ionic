@@ -3,27 +3,31 @@
     <ion-button slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-button>
-    <ion-title>musician-list</ion-title>
+    <ion-title>Musiker Liste</ion-title>
     <ion-buttons collapse="true" slot="end">
       <ion-button (click)="openModal()">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        <ion-icon color="primary" size="large" name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content  id="page2">
-  <!-- <ion-button (click)="newMusician()">
-    neuer Musiker
-  </ion-button> -->
+<ion-content id="page2">
   <ion-list id="musiker-list2" *ngFor="let musician of musicians">
-    <ion-item [routerLink]="[musician.id]" >
+    <ion-item [routerLink]="[musician.id]">
       <ion-avatar slot="start">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        <img *ngIf="!musician.is_extern; else defaultAvatar" alt="Steinbock Logo" src="assets/Steinbock_logo_small.png">
+        <ng-template #defaultAvatar>
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg">
+        </ng-template>
       </ion-avatar>
       <ion-label>
-        <h2>{{ musician.firstName }} {{ musician.lastName }}</h2>
+        <h2>{{ musician.first_name }} {{ musician.last_name }}
+          <span *ngIf="musician.is_extern" style="float: right;">extern</span>
+        </h2>
         <p>{{ musician.phone }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
+
+
