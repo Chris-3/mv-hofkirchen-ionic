@@ -10,11 +10,11 @@ const routes: Routes = [
     path: '',
     component: InsidePage,
     children:[
-      // {
-      //   path: COMPONENT.HOME,
-      //   loadChildren: () => import('../pages/home/home.module')
-      //       .then( m => m.HomePageModule)
-      // },
+      {
+        path: COMPONENT.HOME,
+        loadChildren: () => import('../pages/home/home.module')
+            .then( m => m.HomePageModule)
+      },
       // {
       //   path: COMPONENT.CALENDER,
       //   loadChildren: () => import('../pages/calendar/calendar.module')
@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: COMPONENT.MUSICIAN,
+        redirectTo: COMPONENT.HOME,
         pathMatch: 'full'
       },
     ]
@@ -55,3 +55,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class InsidePageRoutingModule {}
+

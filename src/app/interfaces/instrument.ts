@@ -32,7 +32,7 @@ export const InstrumentGermanLabels = {
   manufacturer: "Hersteller",
   constructionYear: "Baujahr",
   acquisitionCost: "Anschaffungskosten",
-  instrumentType: "Instrumententyp",
+  instrument_type: "Instrumententyp",
   notes: "Notizen",
   creatorId: "Ersteller-ID",
   createdAt: "Erstellt am",

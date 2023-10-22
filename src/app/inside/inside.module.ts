@@ -18,7 +18,6 @@ import { InsidePage } from './inside.page';
   ],
   declarations: [
     InsidePage,
-    // InsertUpdateMusicianDataComponent
 
   ]
 })

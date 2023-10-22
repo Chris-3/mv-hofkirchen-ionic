@@ -23,9 +23,9 @@
         </ion-item>
         <!-- Instrument Type Dropdown -->
         <ion-item>
-          <ion-select label="{{ InstrumentGermanLabels.instrumentType }}"
+          <ion-select label="{{ InstrumentGermanLabels.instrument_type }}"
                       label-placement="floating"
-                      formControlName="instrumentType"
+                      formControlName="instrument_type"
                       interface="popover"
                       (ionChange)="onInstrumentTypeChange($event)">>
             <ion-select-option *ngFor="let type of instrumentTypes"

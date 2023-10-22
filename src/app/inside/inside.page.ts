@@ -14,10 +14,10 @@ import {filter} from "rxjs/operators";
 })
 export class InsidePage implements OnInit {
   pages = [
-    // {
-    //   title: COMPONENT.HOME,
-    //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.HOME
-    // },
+    {
+      title: COMPONENT.HOME,
+      url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.HOME
+    },
     // {
     //   title: COMPONENT.CALENDER,
     //   url: '/'+COMPONENT.INSIDE+'/'+COMPONENT.CALENDER
