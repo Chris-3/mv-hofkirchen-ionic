@@ -6,140 +6,139 @@ import {AlertCrtlService} from '../../../services/alert-crtl.service';
 import {Instrument, InstrumentType, InstrumentGermanLabels, TABLE_INSTRUMENTS} from '../../../interfaces/instrument';
 
 @Component({
-    selector: 'app-insert-update-instrument',
-    templateUrl: './insert-update-instrument.component.html',
-    styleUrls: ['./insert-update-instrument.component.scss'],
+  selector: 'app-insert-update-instrument',
+  templateUrl: './insert-update-instrument.component.html',
+  styleUrls: ['./insert-update-instrument.component.scss'],
 })
 export class InsertUpdateInstrumentComponent implements OnInit {
-    @Input() instrument: Instrument;
-    @ViewChild('createForm') createForm: FormGroup;
-    @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
-    pictureList: string[] = [];
-    instrumentTypes: InstrumentType[] = [];
-    currencies: any[] = [];
-    inventoryLabel: string;
+  @Input() instrument: Instrument;
+  @ViewChild('createForm') createForm: FormGroup;
+  @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
+  pictureList: string[] = [];
+  instrumentTypes: InstrumentType[] = [];
+  currencies: any[] = [];
+  inventoryLabel: string;
 
 
+  instrForm = this.fb.group({
+    label_addition: [''],
+    serial_nr: [''],
+    manufacturer: [''],
+    construction_year: [],
+    acquisition_cost: [],
+    instrument_type: [0, Validators.required],
+    notes: [''],
+    acquisition_date: [],
+    inventory_nr: [1, Validators.required], // Made required based on the DB constraint
+    distributor: [],
+    currency: [1, Validators.required], // Made required based on the DB constraint
+    container: [''],
+    particularities: [''],
+    owner: ['',] // Made required based on the DB constraint
+  });
 
-    instrForm = this.fb.group({
-        labelAddition: [''],
-        serialNr: [''],
-        manufacturer: [''],
-        constructionYear: [],
-        acquisitionCost: [],
-        instrument_type: [0, Validators.required],
-        notes: [''],
-        acquisitionDate: [],
-        inventory_nr: [1, Validators.required], // Made required based on the DB constraint
-        distributor: [],
-        currency: [1, Validators.required], // Made required based on the DB constraint
-        container: [''],
-        particularities: [''],
-        owner: ['',] // Made required based on the DB constraint
-    });
+  constructor(
+    private modalController: ModalController,
+    private fb: FormBuilder,
+    private dataService: SupabaseService,
+    private alertCtrl: AlertCrtlService
+  ) {
+  }
 
-    constructor(
-        private modalController: ModalController,
-        private fb: FormBuilder,
-        private dataService: SupabaseService,
-        private alertCtrl: AlertCrtlService
-    ) {
+  ngOnInit() {
+    this.loadCurrencies();
+    this.loadInstrumentTypes();
+
+    this.pictureList[0] = 'test.jpg';
+    if (this.instrument && this.instrument.id) {
+      this.instrForm.patchValue(this.instrument);
     }
+  }
 
-    ngOnInit() {
-        this.loadCurrencies();
-        this.loadInstrumentTypes();
+  async loadCurrencies() {
+    await this.dataService.getDataFromTable("currencies")
+      .then(response => {
+        this.currencies = response;
+      })
+      .catch(error => {
+        console.error('Error loading currencies:', error);
+        this.alertCtrl.presentErrorToast("Fehler beim laden der Währungen!")
+      });
+  }
 
-        this.pictureList[0] = 'test.jpg';
-        if (this.instrument && this.instrument.id) {
-            this.instrForm.patchValue(this.instrument);
-        }
+  async loadInstrumentTypes() {
+    await this.dataService.getDataFromTable("instrument_types ")
+      .then(response => {
+        this.instrumentTypes = response;
+      })
+      .catch(error => {
+        console.error('Error loading instrument types:', error);
+        this.alertCtrl.presentErrorToast("Fehler beim laden der Instrument Typen!")
+      });
+  }
+
+  submitForm() {
+    if (this.instrument && this.instrument.id) {
+      this.updateInstrument();
+    } else {
+      this.addNewInstrument();
     }
+  }
 
-    async loadCurrencies() {
-        await this.dataService.getDataFromTable("currencies")
-            .then(response => {
-                this.currencies = response;
-            })
-            .catch(error => {
-                console.error('Error loading currencies:', error);
-                this.alertCtrl.presentErrorToast("Fehler beim laden der Währungen!")
-            });
-    }
+  async onInstrumentTypeChange(event: any) {
+    const selectedType = this.instrumentTypes.find(instrumentType => instrumentType.id === event.detail.value);
 
-    async loadInstrumentTypes() {
-        await this.dataService.getDataFromTable("instrument_types ")
-            .then(response => {
-                this.instrumentTypes = response;
-            })
-            .catch(error => {
-                console.error('Error loading instrument types:', error);
-                this.alertCtrl.presentErrorToast("Fehler beim laden der Instrument Typen!")
-            });
-    }
+    this.dataService.getNextFreeInventoryNumber(selectedType.label_short)
+      .then(response => {
+        this.inventoryLabel = "" + selectedType.label_short + response;
+        this.instrForm.value.inventory_nr = response;
+      })
+      .catch(error => {
+        console.error('Error loading inventory number types:', error);
+        this.alertCtrl.presentErrorToast("Fehler beim laden der neuen Inventur Nr!")
+      });
+  }
 
-    submitForm() {
-        if (this.instrument && this.instrument.id) {
-            this.updateInstrument();
-        } else {
-            this.addNewInstrument();
-        }
-    }
+  closeModal() {
+    this.modalController.dismiss();
+  }
 
-    async onInstrumentTypeChange(event: any) {
-        const selectedType = this.instrumentTypes.find(instrumentType => instrumentType.id === event.detail.value);
+  async presentToast(message: string) {
+    await this.alertCtrl.presentToast(message);
+  }
 
-        this.dataService.getNextFreeInventoryNumber(selectedType.label_short)
-            .then(response => {
-                this.inventoryLabel = "" + selectedType.label_short + response;
-                this.instrForm.value.inventory_nr = response;
-            })
-            .catch(error => {
-                console.error('Error loading inventory number types:', error);
-                this.alertCtrl.presentErrorToast("Fehler beim laden der neuen Inventur Nr!")
-            });
-    }
+  async addNewInstrument() {
+    const instrumentData = {...this.instrForm.value};
+    this.dataService.addNewLineToTable(TABLE_INSTRUMENTS, instrumentData)
+      .then(response => {
+        this.alertCtrl.presentToast("Neues Instrument erfolgreich erstellt!")
+        this.modalController.dismiss(response);
+      })
+      .catch(error => {
+        this.alertCtrl.presentErrorToast("Fehler beim erstellen des Instruments!")
+        console.error('Error adding instrument:', error);
+      });
+  }
 
-    closeModal() {
-        this.modalController.dismiss();
-    }
+  async updateInstrument() {
+    const instrumentData = {...this.instrForm.value};
+    this.dataService.updateDataOnTable(TABLE_INSTRUMENTS, instrumentData, this.instrument.id)
+      .then(response => {
+        this.alertCtrl.presentToast("Instrument Daten erfolgreich geändert!")
+        this.modalController.dismiss(response);
+      })
+      .catch(error => {
+        this.alertCtrl.presentErrorToast("Fehler beim ändern der Instrument Daten!")
+        console.error('Error updating instrument:', error);
+      });
+  }
 
-    async presentToast(message: string) {
-        await this.alertCtrl.presentToast(message);
-    }
+  getAvatar(): string {
+    // return this?.avatarUrl || 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
+    return 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
 
-    async addNewInstrument() {
-        const instrumentData = {...this.instrForm.value};
-        this.dataService.addNewLineToTable(TABLE_INSTRUMENTS, instrumentData)
-            .then(response => {
-                this.alertCtrl.presentToast("Neues Instrument erfolgreich erstellt!")
-                this.modalController.dismiss(response);
-            })
-            .catch(error => {
-                this.alertCtrl.presentErrorToast("Fehler beim erstellen des Instruments!")
-                console.error('Error adding instrument:', error);
-            });
-    }
-
-    async updateInstrument() {
-        const instrumentData = {...this.instrForm.value};
-        this.dataService.updateDataOnTable(TABLE_INSTRUMENTS, instrumentData, this.instrument.id)
-            .then(response => {
-                this.alertCtrl.presentToast("Instrument Daten erfolgreich geändert!")
-                this.modalController.dismiss(response);
-            })
-            .catch(error => {
-                this.alertCtrl.presentErrorToast("Fehler beim ändern der Instrument Daten!")
-                console.error('Error updating instrument:', error);
-            });
-    }
-
-    getAvatar(): string {
-        // return this?.avatarUrl || 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-        return 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-
-    }
+  }
 
 
-    protected readonly InstrumentGermanLabels = InstrumentGermanLabels;
+  protected readonly InstrumentGermanLabels = InstrumentGermanLabels;
 }

@@ -1,28 +1,32 @@
-export const TABLE_INSTRUMENTS='instruments';
+export const TABLE_INSTRUMENTS = 'instruments';
 
-export interface InstrumentType{
+export interface InstrumentType {
   id: number;
   label: string;
   label_short: string;
 }
+
 export interface Instrument {
   id: number;
-  labelAddition?: string;
-  serialNr?: string; // Made it optional as per the schema
+  label_addition?: string;
+  serial_nr?: string; // Made it optional as per the schema
   manufacturer?: string;
-  constructionYear?: Date;
-  acquisitionCost?: number;
+  construction_year?: Date;
+  acquisition_cost?: number;
   instrument_type: number;
   notes?: string;
-  creatorId: string; // Changed to string because of UUID type in DB
-  createdAt: Date;
-  acquisitionDate?: Date;
+  creator_id: string; // Changed to string because of UUID type in DB
+  created_at: Date;
+  acquisition_date?: Date;
   inventory_nr: number;
   distributor?: string;
   currency: number;
   container?: string;
   particularities?: string;
   owner: string;
+  type_label?: string;
+  type_label_short?: string;
+
 }
 
 export const InstrumentGermanLabels = {
