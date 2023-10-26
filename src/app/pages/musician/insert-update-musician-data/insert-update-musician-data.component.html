@@ -13,19 +13,22 @@
 </ion-header>
 
 <ion-content>
-    <form [formGroup]="musicianForm" (ngSubmit)="submitForm()">
-        <ion-item>
-            <ion-label>Externer Kontakt</ion-label>
-            <ion-toggle formControlName="is_extern"></ion-toggle>
-        </ion-item>
-        <ng-container *ngFor="let detail of musicianDetails">
-            <ion-item>
-                <ion-label position="stacked">{{ detail.label }}</ion-label>
-                <ion-input [type]="detail.type" formControlName="{{ detail.prop }}"></ion-input>
-            </ion-item>
-        </ng-container>
+  <form [formGroup]="musicianForm" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-toggle formControlName="is_extern">Externer Kontakt</ion-toggle>
+    </ion-item>
 
-        <!-- You can add any other non-generic input components here, like Avatar upload, etc. -->
-    </form>
+    <ng-container *ngFor="let detail of musicianDetails">
+      <ion-item>
+        <ion-input [label]="detail.label"
+                   [type]="detail.type"
+                   formControlName="{{ detail.prop }}"
+                   label-placement="floating">
+        </ion-input>
+      </ion-item>
+    </ng-container>
+
+    <!-- You can add any other non-generic input components here, like Avatar upload, etc. -->
+  </form>
 </ion-content>
 

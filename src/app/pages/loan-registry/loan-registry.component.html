@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Loan Registry Entry</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="loanForm">
+    <ion-item>
+      <ion-label position="floating">Start Date</ion-label>
+      <ion-datetime formControlName="startDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">End Date</ion-label>
+      <ion-datetime formControlName="endDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Instrument</ion-label>
+      <ion-select formControlName="instrumentId">
+        <!-- You'll populate this from your instruments list -->
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Musician</ion-label>
+      <ion-select formControlName="musicianID">
+        <!-- You'll populate this from your musicians list -->
+      </ion-select>
+    </ion-item>
+    <ion-button expand="full" (click)="submitForm()">Save Entry</ion-button>
+  </form>
+</ion-content>

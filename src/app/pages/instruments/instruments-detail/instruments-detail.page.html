@@ -30,14 +30,20 @@
             <ion-list>
                 <ng-container *ngFor="let detail of instrumentDetails">
                     <ion-item *ngIf="instrument[detail.prop]">
-                        <ion-label position="stacked">{{ detail.label }}</ion-label>
-                        <ion-input color="primary" readonly="true" [value]="getFormattedValue(detail, instrument)"></ion-input>
+<!--                        <ion-label position="stacked">{{ detail.label }}</ion-label>-->
+                        <ion-input color="primary"
+                                   readonly="true"
+                                   [value]="getFormattedValue(detail, instrument)"
+                                   [label]="detail.label"
+                                   label-placement="floating"
+                        ></ion-input>
                     </ion-item>
                 </ng-container>
             </ion-list>
 
             <!-- Delete Instrument Button -->
-            <ion-button color="danger" expand="block" (click)="deleteInstrument(instrument.id)">Instrument löschen</ion-button>
+            <ion-button color="danger" expand="block" (click)="deleteInstrument(instrument.id)">Instrument löschen
+            </ion-button>
         </ion-col>
     </ion-row>
 </ion-content>

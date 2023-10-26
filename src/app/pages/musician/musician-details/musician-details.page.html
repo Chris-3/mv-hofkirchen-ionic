@@ -33,8 +33,12 @@
       <ion-list>
         <ng-container *ngFor="let detail of musiciansDetails">
           <ion-item *ngIf="musician[detail.prop]">
-            <ion-label position="stacked">{{ detail.label }}</ion-label>
-            <ion-input color="primary" readonly="true" [value]="getFormattedValue(detail, musician)"></ion-input>
+<!--            <ion-label position="stacked">{{ detail.label }}</ion-label>-->
+            <ion-input color="primary" readonly="true"
+                       [value]="getFormattedValue(detail, musician)"
+                       [label]="detail.label"
+                       label-placement="floating"
+            ></ion-input>
           </ion-item>
         </ng-container>
       </ion-list>

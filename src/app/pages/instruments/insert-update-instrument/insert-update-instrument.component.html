@@ -15,104 +15,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-row>
-    <ion-col class="content-col">
-      <form [formGroup]="instrForm" (ngSubmit)="submitForm()">
-        <ion-item>
-          <ion-label>{{ inventoryLabel }}</ion-label>
-        </ion-item>
-        <!-- Instrument Type Dropdown -->
-        <ion-item>
-          <ion-select label="{{ InstrumentGermanLabels.instrument_type }}"
-                      label-placement="floating"
-                      formControlName="instrument_type"
-                      interface="popover"
-                      (ionChange)="onInstrumentTypeChange($event)">>
-            <ion-select-option *ngFor="let type of instrumentTypes"
-                               [value]="type.id">{{ type.label }}</ion-select-option>
-          </ion-select>
-        </ion-item>
+  <form [formGroup]="instrumentForm" (ngSubmit)="submitForm()">
+    <ion-item>{{inventoryLabel}}</ion-item>
+    <ng-container *ngFor="let detail of instrumentDetails">
+      <ion-item *ngIf="detail.type !== 'dropdown'">
+        <ion-input [label]="detail.label"
+                   [type]="detail.type"
+                   formControlName="{{ detail.prop }}"
+                   label-placement="floating">
+        </ion-input>
+      </ion-item>
 
-        <!-- labelAddition -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.labelAddition }}" label-placement="floating"
-                     formControlName="label_addition"></ion-input>
-        </ion-item>
+      <!-- For dropdowns -->
+      <ion-item *ngIf="detail.type === 'dropdown'">
+        <ion-select [label]="detail.label"
+                    formControlName="{{ detail.prop }}"
+                    label-placement="floating"
+                    interface="popover">
+          <ion-select-option *ngFor="let option of getInstrumentOptions(detail)"
+                             [value]="option.id">{{ option.label }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ng-container>
 
-        <!-- Serial Number -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.serialNr }}" label-placement="floating"
-                     formControlName="serial_nr"></ion-input>
-        </ion-item>
+    <!-- Any other non-generic components go here -->
+  </form>
 
-        <!-- Manufacturer -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.manufacturer }}" label-placement="floating"
-                     formControlName="manufacturer"></ion-input>
-        </ion-item>
-
-        <!-- Construction Year -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.constructionYear }}" type="date" label-placement="floating"
-                     formControlName="construction_year"></ion-input>
-        </ion-item>
-
-        <!-- Acquisition Cost -->
-        <ion-item>
-          <ion-input type="number" min="0" label="{{ InstrumentGermanLabels.acquisitionCost }}"
-                     label-placement="floating"
-                     formControlName="acquisition_cost"></ion-input>
-        </ion-item>
-
-        <!-- Currency Dropdown -->
-        <ion-item>
-          <ion-select formControlName="currency"
-                      label="{{ InstrumentGermanLabels.currency }}"
-                      label-placement="floating"
-                      interface="popover">
-            <ion-select-option *ngFor="let currency of currencies"
-                               [value]="currency.id">{{ currency.label }}</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <!-- Acquisition date -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.acquisitionDate }}" type="date" label-placement="floating"
-                     formControlName="acquisition_date"></ion-input>
-        </ion-item>
-
-        <!-- distributor -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.distributor }}" label-placement="floating"
-                     formControlName="distributor"></ion-input>
-        </ion-item>
-
-        <!-- container -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.container }}" label-placement="floating"
-                     formControlName="container"></ion-input>
-        </ion-item>
-
-        <!-- owner -->
-        <ion-item>
-          <ion-input label="{{ InstrumentGermanLabels.owner }}" label-placement="floating"
-                     formControlName="owner"></ion-input>
-        </ion-item>
-
-        <!-- particularities -->
-        <ion-item>
-          <ion-textarea label="{{ InstrumentGermanLabels.particularities }}" label-placement="floating"
-                        formControlName="particularities"></ion-textarea>
-        </ion-item>
-
-        <!-- Notes -->
-        <ion-item>
-          <ion-textarea label="{{ InstrumentGermanLabels.notes }}" label-placement="floating"
-                        formControlName="notes"></ion-textarea>
-        </ion-item>
-
-
-      </form>
-    </ion-col>
-  </ion-row>
 </ion-content>

@@ -7,6 +7,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {COMPONENT} from "../../../interfaces/route-names";
 import {AlertCrtlService} from "../../../services/alert-crtl.service";
+import {MusicianService} from "../../../services/musician.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-musician-details',
@@ -26,20 +28,27 @@ export class MusicianDetailsPage implements OnInit {
         {label: MusicianGermanLabels.email, prop: 'email'},
         {label: MusicianGermanLabels.notes, prop: 'notes'},
     ];
+    private subscription: Subscription;
 
     constructor(
-        private dataService: SupabaseService,
+        private musicianService: MusicianService,
         private activatedRoute: ActivatedRoute,
         private modalController: ModalController,
         private alertCtrl: AlertCrtlService,
-        private router: Router
     ) {
     }
 
-    async ngOnInit() {
-        const id = this.activatedRoute.snapshot.paramMap.get('id');
+     ngOnInit() {
+        const id = +this.activatedRoute.snapshot.paramMap.get('id');
+        this.subscription = this.musicianService.getMusicianById(id).subscribe(musician => {
+            this.musician = musician;
+        });
+    }
 
-        this.musician = await this.dataService.getDataDetails(TABLE_MUSICIANS, +id);
+    ngOnDestroy(): void {  // OnDestroy lifecycle hook
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     async openModal(musician?: Musician) {
@@ -69,6 +78,7 @@ export class MusicianDetailsPage implements OnInit {
     formatStreetAddress(): string {
         return this.musician.postal_code + ' ' + this.musician.city;
     }
+
     async deleteMusician(musicianId: number) {
         const confirmation = await this.alertCtrl.presentConfirm(
             'Löschen bestätigen',
@@ -76,12 +86,8 @@ export class MusicianDetailsPage implements OnInit {
             'Abbrechen',
             'Löschen'
         );
-
         if (confirmation === 'ok') {
-            // Assuming you have a deleteInstrumentById method in your dataService
-            await this.dataService.deleteDataFromTable(TABLE_MUSICIANS, musicianId);
-            await this.alertCtrl.presentToast("Musiker erfolgreich gelöscht!")
-            await this.router.navigateByUrl('/' + COMPONENT.INSIDE + '/' + COMPONENT.MUSICIAN, {replaceUrl: true});
+            await this.musicianService.deleteMusician(musicianId);
         }
     }
 
