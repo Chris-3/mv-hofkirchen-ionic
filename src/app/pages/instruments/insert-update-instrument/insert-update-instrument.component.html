@@ -33,7 +33,10 @@
                     label-placement="floating"
                     interface="popover">
           <ion-select-option *ngFor="let option of getInstrumentOptions(detail)"
-                             [value]="option.id">{{ option.label }}</ion-select-option>
+                             [value]="option.id"
+          >
+            {{ option.label }}
+          </ion-select-option>
         </ion-select>
       </ion-item>
     </ng-container>

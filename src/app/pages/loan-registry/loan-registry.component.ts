@@ -1,79 +1,116 @@
 import {Component, Input, numberAttribute, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroupDirective, Validators} from "@angular/forms";
 import {ModalController} from "@ionic/angular";
-import {SupabaseService} from "../../services/supabase.service";
-import {Loan, TABLE_LOANS} from "../../interfaces/loan";
-import {AlertCrtlService} from "../../services/alert-crtl.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {Loan} from "../../interfaces/loan";
+import {LoanService} from "../../services/loan.service";
+import {InstrumentService} from "../../services/instrument.service";
+import {MusicianService} from "../../services/musician.service";
+import {Instrument} from "../../interfaces/instrument";
+import {Musician} from "../../interfaces/musician";
+import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-loan-registry',
-  templateUrl: './loan-registry.component.html',
-  styleUrls: ['./loan-registry.component.scss'],
+    selector: 'app-loan-registry',
+    templateUrl: './loan-registry.component.html',
+    styleUrls: ['./loan-registry.component.scss'],
 })
 export class LoanRegistryComponent implements OnInit {
-  @Input() loan: Loan;
-  @ViewChild('createForm') createForm: FormGroupDirective;
+    @Input() loan: Loan;
+    @Input() instrumentId?: number;
+    @Input() musicianId?: number;
+    @ViewChild('createForm') createForm: FormGroupDirective;
 
+    showStartDatePicker = false;
+    showEndDatePicker = false;
+    instruments: Instrument[] = [];
+    musicians: Musician[] = [];
 
-  loanForm = this.fb.group({
-    start_date: [new Date(), Validators.required],
-    end_date: [],
-    instrument_id: [0, Validators.required],
-    musician_id: [0, Validators.required]
-  });
+    loanForm = this.fb.group({
+        start_date: [new Date().toISOString(), Validators.required],
+        end_date: [],
+        instrument_id: [0, Validators.required],
+        musician_id: [0, Validators.required]
+    });
+    public instrumentReturned: boolean;
+    private subInstr: Subscription;
+    private subMusician: Subscription;
 
-  constructor(
-    private fb: FormBuilder,
-    private modalCtrl: ModalController,
-    private dataService: SupabaseService,
-    private alertCtrl: AlertCrtlService,
-  ) {
-  }
-
-  ngOnInit() {
-
-    if (this.loan && this.loan.id) {
-      this.loanForm.patchValue(this.loan);
+    constructor(
+        private fb: FormBuilder,
+        private modalController: ModalController,
+        private loanService: LoanService,
+        private instrumentService: InstrumentService,
+        private musicianService: MusicianService,
+    ) {
     }
-  }
 
-  submitForm() {
-    if (this.loan && this.loan.id) {
-      this.updateLoan();
-    } else {
-      this.addNewLoan();
+    ngOnInit() {
+        this.subInstr = this.instrumentService.instruments$.subscribe(data => {
+            this.instruments = data;
+        });
+
+        this.subMusician = this.musicianService.musicians$.subscribe(data => {
+            this.musicians = data;
+        });
+        if (this.loan && this.loan.id) {
+            const loanData = {
+                ...this.loan,
+                start_date: new Date(this.loan.start_date).toISOString(),
+                end_date: this.loan.end_date ? new Date(this.loan.end_date).toISOString() : null
+            };
+
+            this.loanForm.patchValue(loanData);
+        }
+        if (this.instrumentId) {
+            this.loanForm.get('instrument_id').setValue(this.instrumentId);
+        }
+
+        if (this.musicianId) {
+            this.loanForm.get('musician_id').setValue(this.musicianId);
+        }
     }
-  }
 
-  close() {
-    this.modalCtrl.dismiss();
-  }
+    ngOnDestroy(): void {  // OnDestroy lifecycle hook
+        if (this.subInstr) {
+            this.subInstr.unsubscribe();
+        }
+        if (this.subMusician) {
+            this.subMusician.unsubscribe();
+        }
+    }
 
-  private async updateLoan() {
-    const loanData = this.loanForm.value;
-    this.dataService.updateDataOnTable(TABLE_LOANS, loanData, this.loan.id)
-      .then(response=>{
-        this.alertCtrl.presentToast("Leiheintrag erfolgreich erstellt!");
-        this.modalCtrl.dismiss(response);
-      })
-      .catch(error=>{
-        this.alertCtrl.presentErrorToast("Fehler beim erstellen des Leiheintrags");
-        console.error("Error creating loan entry: ",error);
-      })
+    submitForm() {
+        if (this.loan && this.loan.id) {
+            this.updateLoan();
+        } else {
+            this.addNewLoan();
+        }
+    }
 
-  }
+    async close() {
+        this.ngOnDestroy();
+        await this.modalController.dismiss();
+    }
 
-  private async addNewLoan() {
-    const loanData = this.loanForm.value;
-    this.dataService.addNewLineToTable(TABLE_LOANS, loanData)
-      .then(response=>{
-        this.alertCtrl.presentToast("Leiheintrag erfolgreich erstellt!");
-        this.modalCtrl.dismiss(response);
-      })
-      .catch(error=>{
-        this.alertCtrl.presentErrorToast("Fehler beim erstellen des Leiheintrags");
-        console.error("Error creating loan entry: ",error);
-      })
-  }
+    setInstrumentStatus(returned: boolean) {
+        this.instrumentReturned = returned;
+        if (!returned) {
+            this.loanForm.get('end_date').setValue(null);
+        }
+    }
+
+    private async updateLoan() {
+        const loanData = this.loanForm.value;
+        this.loanService.updateLoan(loanData, this.loan.id).then(async response => {
+                await this.modalController.dismiss(response);
+            }
+        )
+    }
+
+    private async addNewLoan() {
+        const loanData = this.loanForm.value;
+        this.loanService.addLoanEntry(loanData).then(async response => {
+            await this.modalController.dismiss(response);
+        })
+    }
 }

@@ -35,6 +35,7 @@ export class InstrumentService {
   ) {
     this.initializeData();
   }
+
   private async initializeData() {
     try {
       await Promise.all([
@@ -78,13 +79,7 @@ export class InstrumentService {
       });
   }
 
-  private enhanceInstrumentsWithDetails(instruments: Instrument[]): Instrument[] {
-    return instruments.map(instrument => ({
-      ...instrument,
-      instrument_type: this.instrumentTypes.getValue().find(type => type.id === instrument.instrument_type_id),
-      currency: this.currencies.getValue().find(curr => curr.id === instrument.currency_id)
-    }));
-  }
+
   getInstrumentById(id: number) {
     return this.instruments$.pipe(
       filter(instruments => !!instruments.length),  // Ensure the array isn't empty

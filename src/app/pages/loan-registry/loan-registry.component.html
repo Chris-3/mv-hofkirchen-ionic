@@ -1,34 +1,97 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Add Loan Registry Entry</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="close()">Close</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <!--        <ion-title>Add Loan Registry Entry</ion-title>-->
+        <ion-title>{{ loan?.id ? 'Leiheintrag aktualisieren' : 'Neuen Leiheintrag hinzufügen' }}</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="close()">Close</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="loanForm">
-    <ion-item>
-      <ion-label position="floating">Start Date</ion-label>
-      <ion-datetime formControlName="startDate"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">End Date</ion-label>
-      <ion-datetime formControlName="endDate"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Instrument</ion-label>
-      <ion-select formControlName="instrumentId">
-        <!-- You'll populate this from your instruments list -->
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Musician</ion-label>
-      <ion-select formControlName="musicianID">
-        <!-- You'll populate this from your musicians list -->
-      </ion-select>
-    </ion-item>
-    <ion-button expand="full" (click)="submitForm()">Save Entry</ion-button>
-  </form>
+    <form [formGroup]="loanForm">
+        <ion-item>
+            <ion-text>Status </ion-text>
+            <ion-button slot="end" *ngIf="instrumentReturned" expand="full" (click)="setInstrumentStatus(false)">Instrument zurückgegeben</ion-button>
+            <ion-button slot="end" *ngIf="!instrumentReturned" expand="full" (click)="setInstrumentStatus(true)">Instrument verliehen</ion-button>
+        </ion-item>
+        <!-- Buttons to toggle instrument status -->
+
+        <!-- Start Date -->
+        <ion-item>
+            <ion-label>Start Datum</ion-label>
+            <ion-datetime-button datetime="startDatePicker" (click)="showStartDatePicker = true"></ion-datetime-button>
+        </ion-item>
+
+        <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+                <ion-datetime
+                        id="startDatePicker"
+                        formControlName="start_date"
+                        presentation="date"
+                ></ion-datetime>
+            </ng-template>
+            <ion-button (click)="showStartDatePicker = false">Done</ion-button>
+        </ion-modal>
+
+        <!-- End Date -->
+        <!-- End Date -->
+        <ion-item *ngIf="instrumentReturned">
+            <ion-label>End Datum</ion-label>
+            <ion-datetime-button datetime="endDatePicker" (click)="showEndDatePicker = true"></ion-datetime-button>
+        </ion-item>
+
+        <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+                <ion-datetime
+                        id="endDatePicker"
+                        formControlName="end_date"
+                        presentation="date"
+                ></ion-datetime>
+            </ng-template>
+            <ion-button (click)="showEndDatePicker = false">Done</ion-button>
+        </ion-modal>
+
+
+        <!-- Instrument Dropdown -->
+        <ion-item>
+            <ion-select label="Instrument"
+                        formControlName="instrument_id"
+                        label-placement="floating"
+                        interface="popover"
+            >
+                <ion-select-option
+                        *ngFor="let instrument of instruments"
+                        [value]="instrument.id"
+                >
+                    {{ instrument.type_label_short }}{{ instrument.inventory_nr }} {{ instrument.type_label }}
+                    <!-- Assuming your instrument object has a 'name' property -->
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+
+
+        <!--Musician Dropdown-->
+        <ion-item>
+            <ion-select
+                    label="Musiker"
+                    formControlName="musician_id"
+                    label-placement="floating"
+                    interface="popover"
+            >
+                <ion-select-option
+                        *ngFor="let musician of musicians"
+                        [value]="musician.id">
+                    {{ musician.first_name }} {{ musician.last_name }}
+                    <!-- Assuming your musician object has a 'name' property -->
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+
+
+        <!-- Submit Button -->
+        <ion-button expand="full" (click)="submitForm()">Save Entry</ion-button>
+
+    </form>
 </ion-content>

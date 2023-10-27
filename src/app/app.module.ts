@@ -16,12 +16,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {
     InsertUpdateInstrumentComponent
 } from './pages/instruments/insert-update-instrument/insert-update-instrument.component';
+import {LoanRegistryComponent} from "./pages/loan-registry/loan-registry.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         InsertUpdateMusicianDataComponent,
         InsertUpdateInstrumentComponent,
+        LoanRegistryComponent
     ],
     imports: [
         BrowserModule,

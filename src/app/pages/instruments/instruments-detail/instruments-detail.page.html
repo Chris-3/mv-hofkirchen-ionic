@@ -15,6 +15,7 @@
 <ion-content [fullscreen]="true" *ngIf="instrument">
     <ion-row>
         <ion-col class="content-col">
+
             <!-- Thumbnail of the instrument -->
             <ion-thumbnail class="user-image">
                 <img alt="Instrument image placeholder"
@@ -30,7 +31,7 @@
             <ion-list>
                 <ng-container *ngFor="let detail of instrumentDetails">
                     <ion-item *ngIf="instrument[detail.prop]">
-<!--                        <ion-label position="stacked">{{ detail.label }}</ion-label>-->
+                        <!--                        <ion-label position="stacked">{{ detail.label }}</ion-label>-->
                         <ion-input color="primary"
                                    readonly="true"
                                    [value]="getFormattedValue(detail, instrument)"
@@ -39,6 +40,27 @@
                         ></ion-input>
                     </ion-item>
                 </ng-container>
+            </ion-list>
+            <!-- Delete Instrument Button -->
+            <ion-button color="primary" expand="block" (click)="openInsertUpdateLoanModal()">Instrument verleihen
+            </ion-button>
+
+            <ion-list *ngIf="loans && loans.length">
+                <ion-list-header>
+                    Loan Registries
+                </ion-list-header>
+                <ion-item *ngFor="let loan of loans">
+                    <!-- Display properties of the loan. Example: -->
+                    <ion-text slot="start" [ngStyle]="{ 'color': loan.end_date ? 'primary' : 'green' }">
+
+                        Start Date: {{ loan.start_date | date }}
+                        <br>
+                        {{ loan.end_date ? 'End Date:' + (loan.end_date | date) : 'Aktiv' }}
+                    </ion-text>
+                    <ion-text slot="end">
+                        {{getMusicianNameFromId(loan.musician_id)}}
+                    </ion-text>
+                </ion-item>
             </ion-list>
 
             <!-- Delete Instrument Button -->
